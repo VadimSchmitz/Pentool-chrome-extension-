@@ -1,10 +1,13 @@
 //undo and redo functionality https://www.codicode.com/art/undo_and_redo_to_the_html5_canvas.aspx
 let points = [];
+let creatingPath = true;
+
+//when extension is triggered stop scrolling
+body.style.overflow = "hidden";
 
 let canvas = document.createElement('canvas');
 let ctx = canvas.getContext("2d");
 let body = document.getElementsByTagName("body")[0];
-
 
 if (!document.getElementById("canvasId")) {
 
@@ -24,27 +27,28 @@ if (!document.getElementById("canvasId")) {
 }
 
 canvas.addEventListener('mousedown', function (e) {
-    //when clicked add to array
-    points.push(getMousePos(canvas, e));
 
-    //draw circle 
-    drawCircle(ctx, e.clientX, e.clientY, 2);
+    if (creatingPath) {
+        points.push(getMousePos(canvas, e));
+        drawCircle(ctx, e.clientX, e.clientY, 2);
+        
+        //drawline between two last points
+        if (points.length > 1) {
+            drawLine(ctx, points[points.length - 1].x, points[points.length - 1].y, points[points.length - 2].x, points[points.length - 2].y);
+        }
 
-    //draw line between last two points
-    if (points.length > 1) {
-        drawLine(ctx, points[points.length - 1].x, points[points.length - 1].y, points[points.length - 2].x, points[points.length - 2].y);
+        //if the first and the last point are 20 pixels apart, close the path 
+        if (points.length > 1 && Math.abs(points[0].x - points[points.length - 1].x) < 20 && Math.abs(points[0].y - points[points.length - 1].y) < 20) {
+            drawLine(ctx, points[0].x, points[0].y, points[points.length - 1].x, points[points.length - 1].y);
+            creatingPath = false;
+            body.style.overflow = "scroll";
+        }
+
+        //todo
+        //if closed save to clipboard and show download png button
     }
 
-    //if the first and the last point are 20 pixels apart, close the path 
-    if (points.length > 1 && Math.abs(points[0].x - points[points.length - 1].x) < 20 && Math.abs(points[0].y - points[points.length - 1].y) < 20){
-        console.log("close");
-        drawLine(ctx, points[0].x, points[0].y, points[points.length -1].x, points[points.length -1].y);
-    }
-
-    //todo
-    //if closed save to clipboard and show download png button
 })
-
 
 function drawCircle(ctx, x, y, radius) {
     ctx.beginPath()
@@ -56,7 +60,6 @@ function drawCircle(ctx, x, y, radius) {
 function drawLine(ctx, x1, y1, x2, y2) {
     ctx.strokeStyle = 'black';
     ctx.lineWidth = 2;
-
     ctx.beginPath();
     ctx.moveTo(x1, y1);
     ctx.lineTo(x2, y2);
@@ -71,21 +74,30 @@ function getMousePos(canvas, e) {
     };
 }
 
- 
+
+//now we have a selection of cords that we want to save from an image
+
+
+
+
+
+
 // create button with even listener
-const el = document.createElement('button');
+// const el = document.createElement('button');
 
-el.addEventListener('click', function handleClick(event) {
-  console.log('element clicked 🎉🎉🎉', event);
-});
+// el.addEventListener('click', function handleClick(event) {
+//     console.log('element clicked 🎉🎉🎉', event);
+// });
 
-el.textContent = 'Hello world';
+// el.textContent = 'Hello world';
 
-el.style.backgroundColor = 'salmon';
-el.style.width = '150px';
-el.style.height = '150px';
-el.style.position = 'absolute';
-el.style.top = "5%";
-el.style.left = "50%";;
+// el.style.backgroundColor = 'salmon';
+// el.style.width = '150px';
+// el.style.height = '150px';
+// el.style.position = 'absolute';
+// el.style.top = "5%";
+// el.style.left = "50%";;
 
-body.appendChild(el);
+// body.appendChild(el);
+  
+
