@@ -1,0 +1,33 @@
+{
+  "name": "Pentool",
+  "version": "0.1.0",
+  "description": "Create and save selections of the screen as a png like the pen tool in photoshop",
+  "permissions": [
+    "tabs",
+    "activeTab",
+    "scripting"],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "assets/bookmark.png",
+        "assets/play.png",
+        "assets/delete.png",
+        "assets/save.png"
+      ],
+      "matches": ["https://*/*"]
+    }
+  ],
+  "action": {
+    "default_icon": {
+      "16": "assets/ext-icon.png",
+      "24": "assets/ext-icon.png",
+      "32": "assets/ext-icon.png"
+    },
+    "default_title": "Pentool",
+    "default_popup": "popup.html"
+  },
+  "manifest_version": 3
+}

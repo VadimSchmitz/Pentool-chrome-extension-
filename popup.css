@@ -1,0 +1,33 @@
+.title{
+    font-size: 16px;
+    font-weight: bold;
+    padding: 3px;
+}
+
+.content{
+    width: 250px;
+}
+
+.options{
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+}
+
+.button-entry {
+    height: auto;
+    width: auto;
+    outline: none;
+    border: none;
+    border-radius: 2px;
+    text-align: left;
+    padding: 3px;
+  }
+
+  .button-entry:hover {
+    background-color: lightgray;
+  }
+
+  .button-entry:active {
+    background-color: darkgray;
+  }
