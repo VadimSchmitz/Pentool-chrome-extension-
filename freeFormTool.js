@@ -1,5 +1,4 @@
 //undo and redo functionality https://www.codicode.com/art/undo_and_redo_to_the_html5_canvas.aspx
-
 let points = [];
 
 let canvas = document.createElement('canvas');
@@ -36,9 +35,14 @@ canvas.addEventListener('mousedown', function (e) {
         drawLine(ctx, points[points.length - 1].x, points[points.length - 1].y, points[points.length - 2].x, points[points.length - 2].y);
     }
 
+    //if the first and the last point are 20 pixels apart, close the path 
+    if (points.length > 1 && Math.abs(points[0].x - points[points.length - 1].x) < 20 && Math.abs(points[0].y - points[points.length - 1].y) < 20){
+        console.log("close");
+        drawLine(ctx, points[0].x, points[0].y, points[points.length -1].x, points[points.length -1].y);
+    }
 
-
-    console.log(points);
+    //todo
+    //if closed save to clipboard and show download png button
 })
 
 
