@@ -1,6 +1,5 @@
 //undo and redo functionality https://www.codicode.com/art/undo_and_redo_to_the_html5_canvas.aspx
 //https://jsfiddle.net/WebWanderer/d9j1gufv/1/
-//wait until page is loaded
 
     let points = [];
     let creatingPath = true;
@@ -45,6 +44,8 @@
 
                 body.style.overflow = "scroll";
                 ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+                clipSelection(ctx);
             }
     
             //todo
@@ -52,6 +53,23 @@
         }
     
     })
+
+
+    //creates a 2dpath that is used for clip
+    function clipSelection(ctx){
+        let path = new Path2D();
+        path.moveTo(points[0].x, points[0].y);
+
+        console.log(points.length);
+
+        for (let i = 1; i < points.length; i++) {
+            path.lineTo(points[i].x, points[i].y);
+            console.log('map');
+        }
+    
+        path.closePath();
+        ctx.clip(path);
+    }
 
     function drawCircle(ctx, x, y, radius) {
         ctx.beginPath()
