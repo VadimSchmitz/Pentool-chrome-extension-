@@ -3,8 +3,9 @@
 
     let points = [];
     let creatingPath = true;
-    
-    //when extension is triggered stop scrolling
+
+    let background = new Image();
+    background.src = "http://i.imgur.com/yf6d9SX.jpg";
     
     let canvas = document.createElement('canvas');
     let ctx = canvas.getContext("2d");
@@ -19,11 +20,15 @@
         canvas.style.position = "absolute";
         canvas.style.top = "0";
         canvas.style.left = "0";;
-        canvas.style.opacity = "100";
+        canvas.style.opacity = "50%";
     
         body.appendChild(canvas);
         body.style.overflow = "hidden";
 
+        //set backtround image of canvas
+        background.onload = function(){
+            ctx.drawImage(background,0,0);   
+        }
         canvasId = document.getElementById("canvasId");
     }
     
@@ -43,15 +48,13 @@
                 creatingPath = false;
 
                 body.style.overflow = "scroll";
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
 
                 clipSelection(ctx);
             }
-    
+
             //todo
             //if closed save to clipboard and show download png button
         }
-    
     })
 
 
@@ -69,6 +72,9 @@
     
         path.closePath();
         ctx.clip(path);
+
+        ctx.fillStyle = 'blue';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
     }
 
     // function saveToClipboard() {
@@ -100,17 +106,9 @@
             x: e.clientX - rect.left,
             y: e.clientY - rect.top
         };
-    }
+    }    
     
-    
-    //now we have a selection of cords that we want to save from an image
-    
-    
-    
-    
-    
-    
-    // create button with even listener
+    // // create button with even listener
     // const el = document.createElement('button');
     
     // el.addEventListener('click', function handleClick(event) {
@@ -126,9 +124,3 @@
     // el.style.top = "5%";
     // el.style.left = "50%";;
     
-    // body.appendChild(el);
-      
-    
-    
-
-
