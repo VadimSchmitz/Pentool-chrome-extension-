@@ -5,7 +5,9 @@
   "permissions": [
     "tabs",
     "activeTab",
-    "scripting"],
+    "scripting",
+    "clipboard"
+  ],
   "background": {
     "service_worker": "background.js"
   },
@@ -17,7 +19,9 @@
         "assets/delete.png",
         "assets/save.png"
       ],
-      "matches": ["https://*/*"]
+      "matches": [
+        "https://*/*"
+      ]
     }
   ],
   "action": {
